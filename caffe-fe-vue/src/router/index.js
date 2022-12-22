@@ -3,6 +3,7 @@ import LoginViewVue from '@/views/LoginView.vue'
 import PageNotFoundViewVue from '@/views/PageNotFoundView.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import HistoryTransactionsView from '../views/HistoryTransactionsView.vue'
 
 const routes = [
   {
@@ -21,6 +22,10 @@ const routes = [
     path: '/list-menu',
     name: 'list-menu',
     component: ListMenuViewVue
+  },{
+    path: '/riwayat-transaksi',
+    name: 'history-transactions',
+    component: HistoryTransactionsView
   }
 ]
 

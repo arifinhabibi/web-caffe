@@ -1,16 +1,14 @@
 <template>
-  <div>
-    <!-- Layout wrapper -->
-    <div class="layout-wrapper layout-content-navbar">
+<div class="layout-wrapper layout-content-navbar">
       <div class="layout-container">
-        
         <!-- Menu -->
-          <MenuNavigasiComponent />
+        <MenuNavigasiComponent />
         <!-- / Menu -->
+
 
         <!-- Layout container -->
         <div class="layout-page">
-
+          
           <!-- navbar -->
           <NavbarComponent />
 
@@ -86,7 +84,7 @@
                       </div>
                       <div class="col-md-8">
                         <h5 class="card-header m-0 me-2 pb-3">Laporan Harian</h5>
-                        <!-- <div id="incomeChart" class="px-2 pb-4"></div> -->
+                        <div id="incomeChart" class="px-2 pb-4"></div>
                         <ChartComponent />
                       </div>
                     </div>
@@ -132,7 +130,7 @@
                           <h2 class="mb-2">8,258</h2>
                           <span>Jumlah Pembelian</span>
                         </div>
-                        <!-- <div id="orderStatisticsChart"></div> -->
+                        <div id="orderStatisticsChart"></div>
                       </div>
                       <ul class="p-3 m-0 scroll-area">
                        
@@ -258,7 +256,7 @@
                               <h6 class="mb-0">Beef Steak</h6>
                             </div>
                             <div class="user-progress d-flex align-items-center gap-1">
-                              <h6 class="mb-0">82.6</h6>
+                              <h6 class="mb-0">8826</h6>
                               <span class="text-muted">pcs</span>
                             </div>
                           </div>
@@ -272,7 +270,7 @@
                               <h6 class="mb-0">Burger</h6>
                             </div>
                             <div class="user-progress d-flex align-items-center gap-1">
-                              <h6 class="mb-0">270.69</h6>
+                              <h6 class="mb-0">6769</h6>
                               <span class="text-muted">pcs</span>
                             </div>
                           </div>
@@ -286,7 +284,7 @@
                               <h6 class="mb-0">French Fries</h6>
                             </div>
                             <div class="user-progress d-flex align-items-center gap-1">
-                              <h6 class="mb-0">637.91</h6>
+                              <h6 class="mb-0">691</h6>
                               <span class="text-muted">pcs</span>
                             </div>
                           </div>
@@ -300,7 +298,7 @@
                               <h6 class="mb-0">BBQ Meat</h6>
                             </div>
                             <div class="user-progress d-flex align-items-center gap-1">
-                              <h6 class="mb-0">838.71</h6>
+                              <h6 class="mb-0">571</h6>
                               <span class="text-muted">pcs</span>
                             </div>
                           </div>
@@ -314,7 +312,7 @@
                               <h6 class="mb-0">Fried Chicken</h6>
                             </div>
                             <div class="user-progress d-flex align-items-center gap-1">
-                              <h6 class="mb-0">203.33</h6>
+                              <h6 class="mb-0">433</h6>
                               <span class="text-muted">pcs</span>
                             </div>
                           </div>
@@ -328,7 +326,7 @@
                               <h6 class="mb-0">Fried Rice</h6>
                             </div>
                             <div class="user-progress d-flex align-items-center gap-1">
-                              <h6 class="mb-0">92.45</h6>
+                              <h6 class="mb-0">345</h6>
                               <span class="text-muted">pcs</span>
                             </div>
                           </div>
@@ -354,10 +352,10 @@
                           </div>
                           <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                             <div class="me-2">
-                              <h6 class="mb-0">Send money</h6>
+                              <h6 class="mb-0">Americano</h6>
                             </div>
                             <div class="user-progress d-flex align-items-center gap-1">
-                              <h6 class="mb-0">82.6</h6>
+                              <h6 class="mb-0">8336</h6>
                               <span class="text-muted">pcs</span>
                             </div>
                           </div>
@@ -368,10 +366,10 @@
                           </div>
                           <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                             <div class="me-2">
-                              <h6 class="mb-0">Mac'D</h6>
+                              <h6 class="mb-0">Ekspresso</h6>
                             </div>
                             <div class="user-progress d-flex align-items-center gap-1">
-                              <h6 class="mb-0">270.69</h6>
+                              <h6 class="mb-0">7279</h6>
                               <span class="text-muted">pcs</span>
                             </div>
                           </div>
@@ -382,10 +380,10 @@
                           </div>
                           <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                             <div class="me-2">
-                              <h6 class="mb-0">Refund</h6>
+                              <h6 class="mb-0">Juice Orange</h6>
                             </div>
                             <div class="user-progress d-flex align-items-center gap-1">
-                              <h6 class="mb-0">637.91</h6>
+                              <h6 class="mb-0">691</h6>
                               <span class="text-muted">pcs</span>
                             </div>
                           </div>
@@ -396,10 +394,10 @@
                           </div>
                           <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                             <div class="me-2">
-                              <h6 class="mb-0">Ordered Food</h6>
+                              <h6 class="mb-0">Coffe Latte</h6>
                             </div>
                             <div class="user-progress d-flex align-items-center gap-1">
-                              <h6 class="mb-0">838.71</h6>
+                              <h6 class="mb-0">541</h6>
                               <span class="text-muted">pcs</span>
                             </div>
                           </div>
@@ -410,10 +408,10 @@
                           </div>
                           <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                             <div class="me-2">
-                              <h6 class="mb-0">Starbucks</h6>
+                              <h6 class="mb-0">Macha</h6>
                             </div>
                             <div class="user-progress d-flex align-items-center gap-1">
-                              <h6 class="mb-0">203.33</h6>
+                              <h6 class="mb-0">433</h6>
                               <span class="text-muted">pcs</span>
                             </div>
                           </div>
@@ -424,10 +422,10 @@
                           </div>
                           <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                             <div class="me-2">
-                              <h6 class="mb-0">Ordered Food</h6>
+                              <h6 class="mb-0">Cappuchino</h6>
                             </div>
                             <div class="user-progress d-flex align-items-center gap-1">
-                              <h6 class="mb-0">-92.45</h6>
+                              <h6 class="mb-0">245</h6>
                               <span class="text-muted">pcs</span>
                             </div>
                           </div>
@@ -457,24 +455,23 @@
       <!-- Overlay -->
       <div class="layout-overlay layout-menu-toggle"></div>
     </div>
-    <!-- / Layout wrapper -->
-  </div>
 </template>
 
 <script>
-
+import ChartComponent from '@/components/ChartComponent.vue';
 import MenuNavigasiComponent from '@/components/MenuNavigasiComponent'
 import NavbarComponent from '@/components/NavbarComponent'
 import FooterComponent from '@/components/FooterComponent'
-import ChartComponent from '@/components/ChartComponent'
+
+
 
 export default {
   name: 'HomeView',
   components: {
     MenuNavigasiComponent,
-    ChartComponent,
     FooterComponent,
     NavbarComponent,
-  }
+    ChartComponent
+}
 }
 </script>
