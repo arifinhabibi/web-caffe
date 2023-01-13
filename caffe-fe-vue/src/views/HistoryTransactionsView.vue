@@ -28,8 +28,8 @@
                         <button class="btn btn-primary" >print pdf</button>
                     </div>
                 </div>
-              <div class=" text-nowrap">
-                <table class="table card-table table-responsive">
+              <div class="table-responsive text-nowrap">
+                <table class="table card-table ">
                   <thead>
                     <tr>
                       <th>No</th>

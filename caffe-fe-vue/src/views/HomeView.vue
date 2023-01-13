@@ -464,7 +464,6 @@ import NavbarComponent from '@/components/NavbarComponent'
 import FooterComponent from '@/components/FooterComponent'
 
 
-
 export default {
   name: 'HomeView',
   components: {
@@ -472,6 +471,13 @@ export default {
     FooterComponent,
     NavbarComponent,
     ChartComponent
-}
+  },
+  mounted() {
+    const token = localStorage.getItem('token')
+    
+    if(token == null){
+      this.$router.push('/login')
+    }
+  },
 }
 </script>
