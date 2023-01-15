@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class AuthMiddleware
@@ -16,6 +17,14 @@ class AuthMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
+        $user = User::where('token', $request->token)->first();
+
+        if (!$request->token || !$user) { 
+            return response()->json([
+                'message' => 'Invalid token'
+            ], 401);
+        }
+
         return $next($request);
     }
 }

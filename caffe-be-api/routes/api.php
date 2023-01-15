@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\OrdersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,3 +23,12 @@ use App\Http\Controllers\API\AuthController;
 // authentication
 Route::post('/auth/login', [AuthController::class, 'login']);
 Route::get('/auth/logout', [AuthController::class, 'logout']);
+
+
+Route::group(['middleware' => ['userToken']], function() {
+    // list menu
+    Route::get('/orders', [OrdersController::class, 'listMenu']);
+    // orders caffe
+    Route::post('/orders', [OrdersController::class, 'orders']);
+
+});
