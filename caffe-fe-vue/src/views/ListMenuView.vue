@@ -39,13 +39,13 @@
                     </tr>
                   </thead>
                   <tbody class="table-border-bottom-0">
-                    <tr>
-                      <td>1</td>
+                    <tr v-for="(data, index) in datas" :key="index">
+                      <td>{{ index + 1 }}</td>
                       <td>
-                        Ekspresso
+                        {{ data.menu }}
                       </td>
                       <td>
-                        {{ format_number.format(parseInt(20000)) }}                        
+                        {{ format_number.format(parseInt(data.price)) }}                        
                       </td>
                       <td>
                         <div class="dropdown">
@@ -94,6 +94,7 @@
 import MenuNavigasiComponent from '@/components/MenuNavigasiComponent'
 import NavbarComponent from '@/components/NavbarComponent'
 import FooterComponent from '@/components/FooterComponent'
+import axios from 'axios'
 
 
 export default {
@@ -106,10 +107,34 @@ export default {
   data(){
     return {
       format_number: new Intl.NumberFormat('id-ID', {
-                style: 'currency',
-                currency: 'IDR',
-            }),
+          style: 'currency',
+          currency: 'IDR',
+      }),
+      datas: null,
+      data_empty: null
     }
-  }
+  },
+  methods: {
+    listMenu(token){
+      axios.get(`http://127.0.0.1:8000/api/orders?token=${token}`).then(
+        response => {
+          this.datas = response.data.menus
+        }
+      ).catch(
+        err => {
+          this.data_empty = err.response.data.message
+        }
+      )
+    }
+  },
+  mounted() {
+    const token = localStorage.getItem('token')
+    
+    if(token == null){
+      this.$router.push('/login')
+    } else {
+      this.listMenu(token)
+    }
+  },
 }
 </script>

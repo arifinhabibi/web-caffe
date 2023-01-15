@@ -29,5 +29,12 @@
 
             }
         },
+        mounted() {
+          const token = localStorage.getItem('token')
+          
+          if(token == null){
+            this.$router.push('/login')
+          }
+        },
     }
 </script>

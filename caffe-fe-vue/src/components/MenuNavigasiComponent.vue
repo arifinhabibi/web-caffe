@@ -20,17 +20,18 @@
         <!-- Dashboard -->
         <li class="menu-item" :class="{active: this.$route.name == 'home'}">
             <router-link to="/" class="menu-link">
-            <i class="menu-icon tf-icons bx bx-home-circle"></i>
-            <div data-i18n="Analytics">Beranda</div>
-            </router-link>
-        </li>
-        
-        <li class="menu-item" :class="{active: this.$route.name == 'buy'}">
-            <router-link to="/buy" class="menu-link">
+            <!-- <i class="menu-icon tf-icons bx bx-home-circle"></i> -->
             <i class='menu-icon bx bx-cart'></i>
             <div data-i18n="Analytics">Pemesanan</div>
             </router-link>
         </li>
+        
+        <!-- <li class="menu-item" :class="{active: this.$route.name == 'buy'}">
+            <router-link to="/buy" class="menu-link">
+           c
+            <div data-i18n="Analytics">Pemesanan</div>
+            </router-link>
+        </li> -->
         
         <li class="menu-item" :class="{active: this.$route.name == 'list-menu'}">
             <router-link to="/list-menu" class="menu-link">
@@ -55,7 +56,7 @@
     export default {
         name: 'MenuNavigasiComponent',
         mounted() {
-
+            
         },
     }
 </script>

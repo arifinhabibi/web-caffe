@@ -76,12 +76,12 @@
                             <div class="mb-3">
                               <label class="form-label" for="basic-default-fullname">Nama Pemesan</label>
                               <input type="text" class="form-control" id="basic-default-fullname"
-                                placeholder="Tulis nama disini" />
+                                placeholder="Tulis nama disini" required />
                             </div>
                             <div class="mb-3">
                               <label class="form-label" for="basic-default-company">No Meja</label>
                               <input type="text" class="form-control" id="basic-default-company"
-                                placeholder="Tulis no meja disini" />
+                                placeholder="Tulis no meja disini" required />
                             </div>
 
                             <h6 class="mt-2 mb-0">List Pesanan</h6>
@@ -92,8 +92,6 @@
                                 <td>{{ format_number.format(parseInt(order.price)) }}</td>
                                 <td><i class='bx bx-trash-alt trash bg-danger text-white' @click="deleteOrder(index)"></i></td>
                               </tr>
-
-                              
 
                             </table>
 
@@ -143,50 +141,21 @@
 import MenuNavigasiComponent from '@/components/MenuNavigasiComponent'
 import NavbarComponent from '@/components/NavbarComponent'
 import FooterComponent from '@/components/FooterComponent'
+import  axios  from 'axios'
 
     export default {
         name: 'BuyView',
         data() {
           return {
-            datas: [
-              {
-                'menu': 'Americano',
-                'price': '25000',
-                'image': 'logo-coffe.png'
-              },
-              {
-                'menu': 'Ekspresso',
-                'price': '25000',
-                'image': 'logo-coffe.png'
-              },
-              {
-                'menu': 'Juice Orange',
-                'price': '20000',
-                'image': 'logo-coffe.png'
-              },
-              {
-                'menu': 'Coffe Latte',
-                'price': '25000',
-                'image': 'logo-coffe.png'
-              },
-              {
-                'menu': 'Potato Fried',
-                'price': '20000',
-                'image': 'makanan.png'
-              },
-              {
-                'menu': 'Fried Rice',
-                'price': '15000',
-                'image': 'makanan.png'
-              }
-            ],
+            datas: null,
             orders: [],
             total_price: [],
             format_number: new Intl.NumberFormat('id-ID', {
                 style: 'currency',
                 currency: 'IDR',
             }),
-            find_menu: null
+            find_menu: null,
+            data_empty: null
           }
         },
         components: {
@@ -202,10 +171,27 @@ import FooterComponent from '@/components/FooterComponent'
           deleteOrder(index){
             this.orders.splice(index, 1)
             this.total_price.splice(index, 1)
+          },
+          listMenu(token){
+            axios.get(`http://127.0.0.1:8000/api/orders?token=${token}`).then(
+              response => {
+                this.datas = response.data.menus
+              }
+            ).catch(
+              err => {
+                this.data_empty = err.response.data.message
+              }
+            )
           }
         },
         mounted() {
+          const token = localStorage.getItem('token')
 
+          if(token == null){
+            this.$router.push('/login')
+          } else {
+            this.listMenu(token)
+          }
         },
 
     }
