@@ -17,6 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('buyer');
             $table->string('no_table');
+            $table->string('total_payment');
+            $table->string('cash');
             $table->date('date_order');
         });
     }

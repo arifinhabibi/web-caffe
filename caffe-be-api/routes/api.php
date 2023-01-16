@@ -30,5 +30,6 @@ Route::group(['middleware' => ['userToken']], function() {
     Route::get('/orders', [OrdersController::class, 'listMenu']);
     // orders caffe
     Route::post('/orders', [OrdersController::class, 'orders']);
-
+    // history transaction
+    Route::get('/history', [OrdersController::class, 'history']);
 });

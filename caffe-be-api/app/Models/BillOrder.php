@@ -12,4 +12,8 @@ class BillOrder extends Model
     public $timestamps = false;
     
     protected $guarded = [];
+
+    public function menuOrders(){
+        return $this->hasMany(MenuOrder::class);
+    }
 }
