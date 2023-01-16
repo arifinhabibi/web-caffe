@@ -72,18 +72,18 @@
                           <h5 class="mb-0">Bill Pemesanan</h5>
                         </div>
                         <div class="card-body">
-                          <form>
+                          <form @submit.prevent="billOrder">
                             <div class="mb-3">
                               <label class="form-label" for="basic-default-fullname">Nama Pemesan</label>
                               <input type="text" class="form-control" id="basic-default-fullname"
-                                placeholder="Tulis nama disini" required />
+                                placeholder="Tulis nama disini" v-model="buyer" required />
                             </div>
                             <div class="mb-3">
                               <label class="form-label" for="basic-default-company">No Meja</label>
                               <input type="text" class="form-control" id="basic-default-company"
-                                placeholder="Tulis no meja disini" required />
+                              placeholder="Tulis no meja disini" v-model="no_table" required />
                             </div>
-
+                            
                             <h6 class="mt-2 mb-0">List Pesanan</h6>
                             <table class="table table-responsive">
                               <div class="bg-danger text-white text-center p-3 mt-2" v-if="orders.length == 0">belum memilih menu</div>
@@ -101,6 +101,10 @@
                               </div>
                               <div class="col-6">
                                 <h5>{{ format_number.format(total_price.reduce((total, num) => parseInt(total) + parseInt(num), 0)) }}</h5>
+                              </div>
+                              <div class="col-12" v-if="orders.length != 0">
+                                <h5 class="mb-0 mt-2">Pembayaran</h5>
+                                <input type="number" class="form-control mt-2" min="1" v-model="cash" required>
                               </div>
                             </div>
                             <div class="d-flex justify-content-end">
@@ -142,6 +146,7 @@ import MenuNavigasiComponent from '@/components/MenuNavigasiComponent'
 import NavbarComponent from '@/components/NavbarComponent'
 import FooterComponent from '@/components/FooterComponent'
 import  axios  from 'axios'
+import Swal from 'sweetalert2'
 
     export default {
         name: 'BuyView',
@@ -155,7 +160,10 @@ import  axios  from 'axios'
                 currency: 'IDR',
             }),
             find_menu: null,
-            data_empty: null
+            data_empty: null,
+            buyer: null,
+            no_table: null,
+            cash: null
           }
         },
         components: {
@@ -182,6 +190,50 @@ import  axios  from 'axios'
                 this.data_empty = err.response.data.message
               }
             )
+          },
+          billOrder(){
+            const total = this.total_price.reduce((total, num) => parseInt(total) + parseInt(num), 0)
+            if (this.cash < total) {
+              Swal.fire({
+                icon: 'error',
+                title: 'uang pembayaran kurang',
+                showConfirmButton: false,
+                timer: 1000
+              })
+            } else {
+              var menu_orders = []
+              this.orders.forEach(order => {
+                const menu = []
+                menu.push(order.menu)
+                menu.push(order.price)
+                menu_orders.push(menu)
+              });
+
+              axios.post(`http://127.0.0.1:8000/api/orders?token=${localStorage.getItem('token')}`, {
+                buyer: this.buyer,
+                no_table: this.no_table,
+                total_payment: this.total_price.reduce((total, num) => parseInt(total) + parseInt(num), 0),
+                cash: this.cash,
+                menu_orders: menu_orders
+              }).then(
+                response => {
+                  console.log(response)
+                  Swal.fire({
+                    icon: 'success',
+                    title: response.data.message,
+                    text: 'kembalian: '+ (this.format_number.format(this.cash - this.total_price.reduce((total, num) => parseInt(total) + parseInt(num), 0))) ,
+                  })
+                }
+                ).catch(
+                  err => {
+                  console.log(err)
+                  Swal.fire({
+                    icon: 'error',
+                    title: err.response.data,
+                  })
+                }
+              )
+            }
           }
         },
         mounted() {

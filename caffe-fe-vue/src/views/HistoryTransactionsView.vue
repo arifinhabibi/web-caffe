@@ -34,209 +34,28 @@
                     <tr>
                       <th>No</th>
                       <th>Nama Pelanggan</th>
+                      <th>no meja</th>
                       <th>List Pembelian</th>
+                      <th>total</th>
+                      <th>uang pembayaran</th>
                       <th>Tanggal Pembelian</th>
                       <th>aksi</th>
                     </tr>
                   </thead>
                   <tbody class="table-border-bottom-0">
-                    <tr>
-                      <td>1</td>
-                      <td>Muhammad Arifin Habibi</td>
+                    <tr v-for="(data, index) in datas" :key="data">
+                      <td>{{ index + 1 }}</td>
+                      <td>{{ data.buyer }}</td>
+                      <td>{{ data.no_table }}</td>
                       <td>
-                        Americano, Ekspresso, Juice Orange dan Coffe Latte
-                      </td>
-                      <td>
-                        22 Desember 2022
-                      </td>
-                      <td>
-                        <div class="dropdown">
-                          <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                            <i class="bx bx-dots-vertical-rounded"></i>
-                          </button>
-                          <div class="dropdown-menu">
-                            <a class="dropdown-item" href="javascript:void(0);"
-                              ><i class="bx bx-info-circle me-1"></i> Detail</a
-                            >
-                            <a class="dropdown-item" href="javascript:void(0);"
-                              ><i class="bx bx-edit-alt me-1"></i> Edit</a
-                            >
-                            <a class="dropdown-item" href="javascript:void(0);"
-                              ><i class="bx bx-trash me-1"></i> Delete</a
-                            >
-                          </div>
+                        <div v-for="(data_menu, index) in data.menu_orders" :key="data_menu" class="d-flex">
+                          {{ data_menu.menu }}{{ index + 1 == data.menu_orders.length ? '.' : ','  }}
                         </div>
                       </td>
-                    </tr><tr>
-                      <td>2</td>
-                      <td>Muhammad Arifin Habibi</td>
+                      <td>{{ data.total_payment }}</td>
+                      <td>{{ data.cash }}</td>
                       <td>
-                        Americano, Ekspresso, Juice Orange dan Coffe Latte
-                      </td>
-                      <td>
-                        22 Desember 2022
-                      </td>
-                      <td>
-                        <div class="dropdown">
-                          <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                            <i class="bx bx-dots-vertical-rounded"></i>
-                          </button>
-                          <div class="dropdown-menu">
-                            <a class="dropdown-item" href="javascript:void(0);"
-                              ><i class="bx bx-info-circle me-1"></i> Detail</a
-                            >
-                            <a class="dropdown-item" href="javascript:void(0);"
-                              ><i class="bx bx-edit-alt me-1"></i> Edit</a
-                            >
-                            <a class="dropdown-item" href="javascript:void(0);"
-                              ><i class="bx bx-trash me-1"></i> Delete</a
-                            >
-                          </div>
-                        </div>
-                      </td>
-                    </tr><tr>
-                      <td>3</td>
-                      <td>Muhammad Arifin Habibi</td>
-                      <td>
-                        Americano, Ekspresso, Juice Orange dan Coffe Latte
-                      </td>
-                      <td>
-                        22 Desember 2022
-                      </td>
-                      <td>
-                        <div class="dropdown">
-                          <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                            <i class="bx bx-dots-vertical-rounded"></i>
-                          </button>
-                          <div class="dropdown-menu">
-                            <a class="dropdown-item" href="javascript:void(0);"
-                              ><i class="bx bx-info-circle me-1"></i> Detail</a
-                            >
-                            <a class="dropdown-item" href="javascript:void(0);"
-                              ><i class="bx bx-edit-alt me-1"></i> Edit</a
-                            >
-                            <a class="dropdown-item" href="javascript:void(0);"
-                              ><i class="bx bx-trash me-1"></i> Delete</a
-                            >
-                          </div>
-                        </div>
-                      </td>
-                    </tr><tr>
-                      <td>4</td>
-                      <td>Muhammad Arifin Habibi</td>
-                      <td>
-                        Americano, Ekspresso, Juice Orange dan Coffe Latte
-                      </td>
-                      <td>
-                        22 Desember 2022
-                      </td>
-                      <td>
-                        <div class="dropdown">
-                          <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                            <i class="bx bx-dots-vertical-rounded"></i>
-                          </button>
-                          <div class="dropdown-menu">
-                            <a class="dropdown-item" href="javascript:void(0);"
-                              ><i class="bx bx-info-circle me-1"></i> Detail</a
-                            >
-                            <a class="dropdown-item" href="javascript:void(0);"
-                              ><i class="bx bx-edit-alt me-1"></i> Edit</a
-                            >
-                            <a class="dropdown-item" href="javascript:void(0);"
-                              ><i class="bx bx-trash me-1"></i> Delete</a
-                            >
-                          </div>
-                        </div>
-                      </td>
-                    </tr><tr>
-                      <td>5</td>
-                      <td>Muhammad Arifin Habibi</td>
-                      <td>
-                        Americano, Ekspresso, Juice Orange dan Coffe Latte
-                      </td>
-                      <td>
-                        22 Desember 2022
-                      </td>
-                      <td>
-                        <div class="dropdown">
-                          <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                            <i class="bx bx-dots-vertical-rounded"></i>
-                          </button>
-                          <div class="dropdown-menu">
-                            <a class="dropdown-item" href="javascript:void(0);"
-                              ><i class="bx bx-info-circle me-1"></i> Detail</a
-                            >
-                            <a class="dropdown-item" href="javascript:void(0);"
-                              ><i class="bx bx-edit-alt me-1"></i> Edit</a
-                            >
-                            <a class="dropdown-item" href="javascript:void(0);"
-                              ><i class="bx bx-trash me-1"></i> Delete</a
-                            >
-                          </div>
-                        </div>
-                      </td>
-                    </tr><tr>
-                      <td>6</td>
-                      <td>Muhammad Arifin Habibi</td>
-                      <td>
-                        Americano, Ekspresso, Juice Orange dan Coffe Latte
-                      </td>
-                      <td>
-                        22 Desember 2022
-                      </td>
-                      <td>
-                        <div class="dropdown">
-                          <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                            <i class="bx bx-dots-vertical-rounded"></i>
-                          </button>
-                          <div class="dropdown-menu">
-                            <a class="dropdown-item" href="javascript:void(0);"
-                              ><i class="bx bx-info-circle me-1"></i> Detail</a
-                            >
-                            <a class="dropdown-item" href="javascript:void(0);"
-                              ><i class="bx bx-edit-alt me-1"></i> Edit</a
-                            >
-                            <a class="dropdown-item" href="javascript:void(0);"
-                              ><i class="bx bx-trash me-1"></i> Delete</a
-                            >
-                          </div>
-                        </div>
-                      </td>
-                    </tr><tr>
-                      <td>7</td>
-                      <td>Muhammad Arifin Habibi</td>
-                      <td>
-                        Americano, Ekspresso, Juice Orange dan Coffe Latte
-                      </td>
-                      <td>
-                        22 Desember 2022
-                      </td>
-                      <td>
-                        <div class="dropdown">
-                          <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                            <i class="bx bx-dots-vertical-rounded"></i>
-                          </button>
-                          <div class="dropdown-menu">
-                            <a class="dropdown-item" href="javascript:void(0);"
-                              ><i class="bx bx-info-circle me-1"></i> Detail</a
-                            >
-                            <a class="dropdown-item" href="javascript:void(0);"
-                              ><i class="bx bx-edit-alt me-1"></i> Edit</a
-                            >
-                            <a class="dropdown-item" href="javascript:void(0);"
-                              ><i class="bx bx-trash me-1"></i> Delete</a
-                            >
-                          </div>
-                        </div>
-                      </td>
-                    </tr><tr>
-                      <td>8</td>
-                      <td>Muhammad Arifin Habibi</td>
-                      <td>
-                        Americano, Ekspresso, Juice Orange dan Coffe Latte
-                      </td>
-                      <td>
-                        22 Desember 2022
+                        {{ data.date_order }}
                       </td>
                       <td>
                         <div class="dropdown">
@@ -291,6 +110,7 @@
 import MenuNavigasiComponent from '@/components/MenuNavigasiComponent'
 import NavbarComponent from '@/components/NavbarComponent'
 import FooterComponent from '@/components/FooterComponent'
+import axios from 'axios'
 
     export default {
         name: 'HistoryTransactionsView',
@@ -298,6 +118,34 @@ import FooterComponent from '@/components/FooterComponent'
             MenuNavigasiComponent,
             FooterComponent,
             NavbarComponent,
-        }
+        },
+        data() {
+          return {
+            datas: null
+          }
+        },
+        methods: {
+          history(){
+            axios.get(`http://127.0.0.1:8000/api/history?token=${localStorage.getItem('token')}`).then(
+              response => {
+                console.log(response)
+                this.datas = response.data
+              }
+            ).catch(
+              err => {
+                console.log(err)
+              }
+            )
+          }
+        },
+        mounted() {
+          const token = localStorage.getItem('token')
+          
+          if(token == null){
+            this.$router.push('/login')
+          } else {
+            this.history()
+          }
+        },
     }
 </script>
