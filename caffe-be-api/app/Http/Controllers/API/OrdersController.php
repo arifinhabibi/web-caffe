@@ -55,6 +55,7 @@ class OrdersController extends Controller
             MenuOrder::create([
                 'menu' => $menu_order[0],
                 'price' => $menu_order[1],
+                'quantity' => $menu_order[2],
                 'bill_order_id' => $bill->id
             ]);
         }
@@ -74,5 +75,23 @@ class OrdersController extends Controller
         }
 
         return response()->json($billOrders, 200);
+    }
+
+    // delete history transaction
+    public function deleteHistory(Request $request, $id) {
+        $history = BillOrder::find($id);
+
+        if (!$history) {
+            # code...
+            return response()->json([
+                'message' => 'riwayat transaksi tidak ditemukan' 
+            ], 402);
+        }
+
+        $history->delete();
+
+        return response()->json([
+            'messaage' => 'riwayat transaksi berhasil dihapus'
+        ], 200);
     }
 }

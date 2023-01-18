@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('menu');
             $table->integer('price');
+            $table->integer('quantity');
             $table->unsignedBigInteger('bill_order_id');
             $table->foreign('bill_order_id')->references('id')->on('bill_orders')->onDelete('cascade');
         });
