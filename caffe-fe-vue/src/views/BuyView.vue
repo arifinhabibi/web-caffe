@@ -23,9 +23,9 @@
 
 
                   <div class="row justify-content-center">
-                    <div class="col-md-8 mb-4">
-
-                       <div class="row">
+                    <div class="col-md-7 mb-4">
+                      
+                      <div class="row">
                         <div class="col-md-3">
                           <h3 class="mb-0">List Menu</h3>
                         </div>
@@ -37,16 +37,17 @@
                               type="text"
                               class="form-control border-0 shadow-none"
                               placeholder="Cari sesuatu"
-                              v-model="find_menu"
-                            />
+                              v-model="searchMenu"
+                              />
+                            </div>
                           </div>
                         </div>
-                        </div>
+                        {{ filteredList }}
                       <div class="row row-cols-1 row-cols-md-3 g-4 mb-5">
                         <div class="col" v-for="data in datas" :key="data">
                           <div class="card h-100">
                             <div class="d-flex justify-content-center mt-2">
-                              <img class="card-img-top w-px-100" :src="'@./../assets/img/elements/' + data.image"  />
+                              <img class="card-img-top" :src="data.image"  />
                             </div>
                             <div class="card-body">
                               <h5 class="card-title mb-0">{{ data.menu }}</h5>
@@ -61,7 +62,7 @@
                     </div>
                       
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-5">
 
                       
                       
@@ -90,22 +91,33 @@
                               <tr v-for="(order, index) in orders" :key="order" class="mt-1">
                                 <td>{{ order.menu }}</td>
                                 <td>{{ format_number.format(parseInt(order.price)) }}</td>
+                                <td>
+                                  <input type="number" min="1" value="1" class="form-control quantity" @change="quantityChange(index)" style="width: 80px;">
+                                </td>
                                 <td><i class='bx bx-trash-alt trash bg-danger text-white' @click="deleteOrder(index)"></i></td>
                               </tr>
 
                             </table>
 
                             <div class="row justify-content-center align-items-center mt-4">
-                              <div class="col-6">
+                              <div class="col-6" v-if="orders.length != 0">
                                 <p class="text-end">Total Harga :</p>
                               </div>
-                              <div class="col-6">
+                              <div class="col-6" v-if="orders.length != 0">
                                 <h5>{{ format_number.format(total_price.reduce((total, num) => parseInt(total) + parseInt(num), 0)) }}</h5>
                               </div>
                               <div class="col-12" v-if="orders.length != 0">
                                 <h5 class="mb-0 mt-2">Pembayaran</h5>
                                 <input type="number" class="form-control mt-2" min="1" v-model="cash" required>
                               </div>
+                              
+                                <div class="col-6 mt-3" v-if="orders.length != 0">
+                                  <p class="text-end">Cash :</p>
+                                </div>
+                                  <div class="col-6 mt-3" v-if="orders.length != 0">
+                                    <h5>{{ format_number.format(cash) }}</h5>
+                                </div>
+
                             </div>
                             <div class="d-flex justify-content-end">
                               <button type="submit" class="btn btn-primary mt-2" v-if="orders.length > 0">Pesan</button>
@@ -152,18 +164,20 @@ import Swal from 'sweetalert2'
         name: 'BuyView',
         data() {
           return {
+            searchMenu: '',
             datas: null,
+            filter: ['americano', 'machiatto'],
             orders: [],
             total_price: [],
             format_number: new Intl.NumberFormat('id-ID', {
                 style: 'currency',
                 currency: 'IDR',
             }),
-            find_menu: null,
             data_empty: null,
             buyer: null,
             no_table: null,
-            cash: null
+            cash: null,
+            quantity: []
           }
         },
         components: {
@@ -175,21 +189,22 @@ import Swal from 'sweetalert2'
           order(menu, price){
             this.orders.push({menu: menu, price: price})
             this.total_price.push(price)
+            this.quantity.push(1)
           },
           deleteOrder(index){
             this.orders.splice(index, 1)
             this.total_price.splice(index, 1)
           },
           listMenu(token){
-            axios.get(`http://127.0.0.1:8000/api/orders?token=${token}`).then(
+            try {
+              axios.get(`http://127.0.0.1:8000/api/orders?token=${token}`).then(
               response => {
                 this.datas = response.data.menus
               }
-            ).catch(
-              err => {
-                this.data_empty = err.response.data.message
-              }
             )
+            } catch (error) {
+              this.data_empty = error.response.data.message
+            }
           },
           billOrder(){
             const total = this.total_price.reduce((total, num) => parseInt(total) + parseInt(num), 0)
@@ -202,10 +217,11 @@ import Swal from 'sweetalert2'
               })
             } else {
               var menu_orders = []
-              this.orders.forEach(order => {
+              this.orders.forEach((order, index) => {
                 const menu = []
                 menu.push(order.menu)
                 menu.push(order.price)
+                menu.push(this.quantity[index])
                 menu_orders.push(menu)
               });
 
@@ -217,7 +233,6 @@ import Swal from 'sweetalert2'
                 menu_orders: menu_orders
               }).then(
                 response => {
-                  console.log(response)
                   Swal.fire({
                     icon: 'success',
                     title: response.data.message,
@@ -226,15 +241,28 @@ import Swal from 'sweetalert2'
                 }
                 ).catch(
                   err => {
-                  console.log(err)
                   Swal.fire({
                     icon: 'error',
-                    title: err.response.data,
+                    title: err.response.data.message,
                   })
                 }
               )
             }
-          }
+          },
+          quantityChange(index){
+            const domQuantity = document.querySelectorAll('.quantity')
+            this.quantity.splice(index, 1)
+            this.quantity.splice(index, 0, parseInt(domQuantity[index].value))
+
+            // total price
+            this.orders.forEach((order, indexOrder) => {
+              if (indexOrder == index) {
+                this.total_price.splice(index, 1)
+                this.total_price.splice(index, 0, order.price * this.quantity[index])
+              }
+            })
+          },
+          
         },
         mounted() {
           const token = localStorage.getItem('token')
@@ -245,6 +273,14 @@ import Swal from 'sweetalert2'
             this.listMenu(token)
           }
         },
+        computed: {
+          filteredList() {
+            return this.filter.filter(data => {
+              return data.toLowerCase().includes(this.searchMenu.toLowerCase())
+            })
+          }
+        }
+        
 
     }
 </script>

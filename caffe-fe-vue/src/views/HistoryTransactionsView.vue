@@ -52,8 +52,8 @@
                           {{ data_menu.menu }}{{ index + 1 == data.menu_orders.length ? '.' : ','  }}
                         </div>
                       </td>
-                      <td>{{ data.total_payment }}</td>
-                      <td>{{ data.cash }}</td>
+                      <td>{{  format_number.format(data.total_payment) }}</td>
+                      <td>{{ format_number.format(data.cash)  }}</td>
                       <td>
                         {{ data.date_order }}
                       </td>
@@ -69,7 +69,7 @@
                             <a class="dropdown-item" href="javascript:void(0);"
                               ><i class="bx bx-edit-alt me-1"></i> Edit</a
                             >
-                            <a class="dropdown-item" href="javascript:void(0);"
+                            <a class="dropdown-item" @click="deleteHistory(data.id)" href="javascript:void(0);"
                               ><i class="bx bx-trash me-1"></i> Delete</a
                             >
                           </div>
@@ -111,6 +111,7 @@ import MenuNavigasiComponent from '@/components/MenuNavigasiComponent'
 import NavbarComponent from '@/components/NavbarComponent'
 import FooterComponent from '@/components/FooterComponent'
 import axios from 'axios'
+import Swal from 'sweetalert2'
 
     export default {
         name: 'HistoryTransactionsView',
@@ -121,7 +122,11 @@ import axios from 'axios'
         },
         data() {
           return {
-            datas: null
+            datas: null,
+            format_number: new Intl.NumberFormat('id-ID', {
+                style: 'currency',
+                currency: 'IDR',
+            })
           }
         },
         methods: {
@@ -134,6 +139,28 @@ import axios from 'axios'
             ).catch(
               err => {
                 console.log(err)
+              }
+            )
+          },
+          deleteHistory(id){
+            axios.get(`http://127.0.0.1:8000/api/history/delete/${id}?token=${localStorage.getItem('token')}`).then(
+              response => {
+                Swal.fire({
+                  icon: 'success',
+                  title: response.data.message,
+                  showConfirmButton: false,
+                  timer: 1000
+                })
+                setTimeout(() => {
+                  location.reload()
+                }, 1000)
+              }
+            ).catch(
+              err => {
+                Swal.fire({
+                  icon: 'error',
+                  title: err.response.data.message
+                })
               }
             )
           }
