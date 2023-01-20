@@ -36,6 +36,20 @@ class MenuController extends Controller
         ], 200);
     }
 
+    // get menu
+    public function getMenu(Request $request, $id){
+        $menu = Menu::find($id);
+
+        if (!$menu) {
+            # code...
+            return response()->json([
+                'message' => 'menu tidak ditemukan'
+            ], 402);
+        }
+
+        return \response()->json($menu, 200);
+    }
+
     // update menu 
     public function updateMenu(Request $request, $id){
         $menu = Menu::find($id);

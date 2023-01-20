@@ -29,8 +29,10 @@ Route::get('/auth/logout', [AuthController::class, 'logout']);
 Route::group(['middleware' => ['userToken']], function() {
     // add menu
     Route::post('/list-menu', [MenuController::class, 'addListMenu']);
+    // get update menu
+    Route::get('/list-menu/update/{id}', [MenuController::class, 'getMenu']);
     // update menu
-    Route::post('list-menu/update/{id}', [MenuController::class, 'updateMenu']);
+    Route::post('/list-menu/update/{id}', [MenuController::class, 'updateMenu']);
     // delete menu
     Route::get('/list-menu/delete/{id}', [MenuController::class, 'deleteMenu']);
     // list menu
