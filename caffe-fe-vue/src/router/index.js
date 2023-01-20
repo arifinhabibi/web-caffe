@@ -5,6 +5,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 // import HomeView from '../views/HomeView.vue'
 import HistoryTransactionsView from '../views/HistoryTransactionsView.vue'
 import BuyView from '../views/BuyView.vue'
+import UpdateMenuView from '../views/UpdateMenuView.vue'
 
 const routes = [
   {
@@ -27,6 +28,10 @@ const routes = [
     path: '/riwayat-transaksi',
     name: 'history-transactions',
     component: HistoryTransactionsView
+  },{
+    path: '/ubah-menu/:id',
+    name: 'ubah-menu',
+    component: UpdateMenuView
   }
 ]
 

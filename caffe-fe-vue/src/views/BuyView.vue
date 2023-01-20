@@ -47,7 +47,7 @@
                         <div class="col" v-for="data in datas" :key="data">
                           <div class="card h-100">
                             <div class="d-flex justify-content-center mt-2">
-                              <img class="card-img-top" :src="data.image"  />
+                              <img class="card-img-top" :src="data.image" style="width: 150px; height: 130px;"  />
                             </div>
                             <div class="card-body">
                               <h5 class="card-title mb-0">{{ data.menu }}</h5>
