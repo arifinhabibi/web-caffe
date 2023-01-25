@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('bill_orders', function (Blueprint $table) {
             $table->id();
+            $table->string('no_order');
             $table->string('buyer');
             $table->string('no_table');
             $table->string('total_payment');

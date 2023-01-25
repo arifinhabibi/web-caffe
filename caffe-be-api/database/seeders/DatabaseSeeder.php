@@ -30,32 +30,32 @@ class DatabaseSeeder extends Seeder
             [
                 'menu' => 'Ekspresso',
                 'price' => 20000,
-                'image' => 'logo-coffe.png'
+                'image' => 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZJUW94KKPxyeHdDr-ftLnZEdUqLej-AGxTg&usqp=CAU'
             ],
             [
                 'menu' => 'Americano',
                 'price' => 16000,
-                'image' => 'logo-coffe.png'
+                'image' => 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZJUW94KKPxyeHdDr-ftLnZEdUqLej-AGxTg&usqp=CAU'
             ],
             [
                 'menu' => 'Machiatto',
                 'price' => 26000,
-                'image' => 'logo-coffe.png'
+                'image' => 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZJUW94KKPxyeHdDr-ftLnZEdUqLej-AGxTg&usqp=CAU'
             ],
             [
                 'menu' => 'Green Tea',
                 'price' => 21000,
-                'image' => 'logo-coffe.png'
+                'image' => 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZJUW94KKPxyeHdDr-ftLnZEdUqLej-AGxTg&usqp=CAU'
             ],
             [
                 'menu' => 'Cappucino',
                 'price' => 25000,
-                'image' => 'logo-coffe.png'
+                'image' => 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZJUW94KKPxyeHdDr-ftLnZEdUqLej-AGxTg&usqp=CAU'
             ],
             [
                 'menu' => 'Ice Tea',
                 'price' => 14000,
-                'image' => 'logo-coffe.png'
+                'image' => 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZJUW94KKPxyeHdDr-ftLnZEdUqLej-AGxTg&usqp=CAU'
             ],
         ];
 

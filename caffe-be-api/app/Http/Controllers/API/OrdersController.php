@@ -30,6 +30,7 @@ class OrdersController extends Controller
     // order
     public function orders(Request $request){
         $validator = Validator::make($request->all(), [
+            'no_order' => 'required|string',
             'buyer' => 'required|string',
             'no_table' => 'required|string',
             'menu_orders' => 'array'
@@ -44,6 +45,7 @@ class OrdersController extends Controller
         }
 
         $bill = BillOrder::create([
+            'no_order' => $request->no_order,
             'buyer' => $request->buyer,
             'no_table' => $request->no_table,
             'total_payment' => $request->total_payment,
@@ -69,12 +71,19 @@ class OrdersController extends Controller
     public function history(Request $request){
         $billOrders = BillOrder::with(['menuOrders'])->get();
 
+        $month = date('F Y');
+
         foreach ($billOrders as $billOrder) {
             # code...
+            date_format(date_create($billOrder->date_order), "F Y") == $month ?  $billOrder->month = $month : $billOrder->moonth = null;
+
             $billOrder->date_order = date_format(date_create($billOrder->date_order), "d F Y");
         }
 
-        return response()->json($billOrders, 200);
+        return response()->json([
+            'history_bills' => $billOrders,
+            'month' => $month
+        ], 200);
     }
 
     // delete history transaction
