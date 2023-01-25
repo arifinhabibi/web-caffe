@@ -29,20 +29,6 @@
                         <div class="col-md-3">
                           <h3 class="mb-0">List Menu</h3>
                         </div>
-                        <div class="col-md-9">
-                          <div class="navbar-nav align-items-center">
-                          <div class="nav-item d-flex align-items-center">
-                            <i class="bx bx-search fs-4 lh-0"></i>
-                            <input
-                              type="text"
-                              class="form-control border-0 shadow-none"
-                              placeholder="Cari sesuatu"
-                              v-model="searchMenu"
-                              />
-                            </div>
-                          </div>
-                        </div>
-                        {{ filteredList }}
                       <div class="row row-cols-1 row-cols-md-3 g-4 mb-5">
                         <div class="col" v-for="data in datas" :key="data">
                           <div class="card h-100">
@@ -70,7 +56,7 @@
 
                       <div class="card mb-4">
                         <div class="card-header d-flex justify-content-between align-items-center">
-                          <h5 class="mb-0">Bill Pemesanan</h5>
+                          <h5 class="mb-0">Bill Pemesanan</h5> <small>No Order: {{ no_order }}</small>
                         </div>
                         <div class="card-body">
                           <form @submit.prevent="billOrder">
@@ -164,7 +150,6 @@ import Swal from 'sweetalert2'
         name: 'BuyView',
         data() {
           return {
-            searchMenu: '',
             datas: null,
             filter: ['americano', 'machiatto'],
             orders: [],
@@ -177,7 +162,8 @@ import Swal from 'sweetalert2'
             buyer: null,
             no_table: null,
             cash: null,
-            quantity: []
+            quantity: [],
+            no_order: 'ORD-'+new Date().getFullYear()+'-'+ ((new Date().getMonth() + 1) <= 9 ? '0'+(new Date().getMonth() + 1) : (new Date().getMonth() + 1))  +'-'+ new Date().getDate() +'-'+this.makeid(5)
           }
         },
         components: {
@@ -186,6 +172,15 @@ import Swal from 'sweetalert2'
             NavbarComponent,
         },
         methods: {
+          makeid(length) {
+              var result           = '';
+              var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+              var charactersLength = characters.length;
+              for ( var i = 0; i < length; i++ ) {
+                  result += characters.charAt(Math.floor(Math.random() * charactersLength));
+              }
+              return result;
+          },
           order(menu, price){
             this.orders.push({menu: menu, price: price})
             this.total_price.push(price)
@@ -226,6 +221,7 @@ import Swal from 'sweetalert2'
               });
 
               axios.post(`http://127.0.0.1:8000/api/orders?token=${localStorage.getItem('token')}`, {
+                no_order: this.no_order,
                 buyer: this.buyer,
                 no_table: this.no_table,
                 total_payment: this.total_price.reduce((total, num) => parseInt(total) + parseInt(num), 0),
@@ -272,15 +268,6 @@ import Swal from 'sweetalert2'
           } else {
             this.listMenu(token)
           }
-        },
-        computed: {
-          filteredList() {
-            return this.filter.filter(data => {
-              return data.toLowerCase().includes(this.searchMenu.toLowerCase())
-            })
-          }
         }
-        
-
     }
 </script>

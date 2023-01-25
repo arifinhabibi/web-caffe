@@ -6,6 +6,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HistoryTransactionsView from '../views/HistoryTransactionsView.vue'
 import BuyView from '../views/BuyView.vue'
 import UpdateMenuView from '../views/UpdateMenuView.vue'
+import PrintPdfView from '../views/PrintPdfView.vue'
 
 const routes = [
   {
@@ -32,7 +33,11 @@ const routes = [
     path: '/ubah-menu/:id',
     name: 'ubah-menu',
     component: UpdateMenuView
-  }
+  },{
+    path: '/unduh-pdf-history',
+    name: 'unduh-pdf-history',
+    component: PrintPdfView
+  },
 ]
 
 const router = createRouter({

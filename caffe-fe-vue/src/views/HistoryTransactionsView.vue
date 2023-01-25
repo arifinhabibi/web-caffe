@@ -21,11 +21,13 @@
             <div class="container-xxl flex-grow-1 container-p-y">
                 <!-- Table within card -->
                 <div class="row mb-4">
-                    <div class="col-2">
-                        <h5 class="mb-4">Riwayat Transaksi</h5>
+                    <div class="col-4">
+                        <h5 class="mb-4">Riwayat Transaksi {{ month }}</h5> 
                     </div>
                     <div class="col-auto">
-                        <button class="btn btn-primary" >print pdf</button>
+                      <div class="d-flex justify-content-end">
+                        <RouterLink to="/unduh-pdf-history" class="btn btn-primary" >print pdf</RouterLink>
+                      </div>
                     </div>
                 </div>
               <div class="table-responsive text-nowrap">
@@ -33,6 +35,7 @@
                   <thead>
                     <tr>
                       <th>No</th>
+                      <th>no order</th>
                       <th>Nama Pelanggan</th>
                       <th>no meja</th>
                       <th>List Pembelian</th>
@@ -43,32 +46,27 @@
                     </tr>
                   </thead>
                   <tbody class="table-border-bottom-0">
-                    <tr v-for="(data, index) in datas" :key="data">
-                      <td>{{ index + 1 }}</td>
-                      <td>{{ data.buyer }}</td>
-                      <td>{{ data.no_table }}</td>
-                      <td>
+                    <tr v-for="(data, index) in datas_history" :key="data">
+                      <td v-if="data.month == month">{{ index + 1 }}</td>
+                      <td v-if="data.month == month">{{ data.no_order }}</td>
+                      <td v-if="data.month == month">{{ data.buyer }}</td>
+                      <td v-if="data.month == month">{{ data.no_table }}</td>
+                      <td v-if="data.month == month">
                         <div v-for="(data_menu, index) in data.menu_orders" :key="data_menu" class="d-flex">
-                          {{ data_menu.menu }}{{ index + 1 == data.menu_orders.length ? '.' : ','  }}
+                          {{ data_menu.menu }}({{ data_menu.quantity }}){{ index + 1 == data.menu_orders.length ? '.' : ','  }}
                         </div>
                       </td>
-                      <td>{{  format_number.format(data.total_payment) }}</td>
-                      <td>{{ format_number.format(data.cash)  }}</td>
-                      <td>
+                      <td v-if="data.month == month">{{  format_number.format(data.total_payment) }}</td>
+                      <td v-if="data.month == month">{{ format_number.format(data.cash)  }}</td>
+                      <td v-if="data.month == month">
                         {{ data.date_order }}
                       </td>
-                      <td>
+                      <td v-if="data.month == month">
                         <div class="dropdown">
                           <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
                             <i class="bx bx-dots-vertical-rounded"></i>
                           </button>
                           <div class="dropdown-menu">
-                            <a class="dropdown-item" href="javascript:void(0);"
-                              ><i class="bx bx-info-circle me-1"></i> Detail</a
-                            >
-                            <a class="dropdown-item" href="javascript:void(0);"
-                              ><i class="bx bx-edit-alt me-1"></i> Edit</a
-                            >
                             <a class="dropdown-item" @click="deleteHistory(data.id)" href="javascript:void(0);"
                               ><i class="bx bx-trash me-1"></i> Delete</a
                             >
@@ -122,7 +120,8 @@ import Swal from 'sweetalert2'
         },
         data() {
           return {
-            datas: null,
+            datas_history: [],
+            month: null,
             format_number: new Intl.NumberFormat('id-ID', {
                 style: 'currency',
                 currency: 'IDR',
@@ -133,8 +132,9 @@ import Swal from 'sweetalert2'
           history(){
             axios.get(`http://127.0.0.1:8000/api/history?token=${localStorage.getItem('token')}`).then(
               response => {
-                console.log(response)
-                this.datas = response.data
+                this.datas_history = response.data.history_bills
+            
+                this.month = response.data.month
               }
             ).catch(
               err => {

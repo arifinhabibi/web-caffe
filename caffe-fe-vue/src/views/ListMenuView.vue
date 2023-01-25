@@ -112,7 +112,7 @@
                       </div>
                       <div class="col-12">
                         <div class="d-flex justify-content-end">
-                          <button type="submit" class="btn btn-primary">tambahkan</button>
+                          <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">tambahkan</button>
                         </div>
                       </div>
                     </form>
